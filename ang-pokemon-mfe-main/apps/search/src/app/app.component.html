@@ -1,0 +1,22 @@
+<h2>Search</h2>
+
+<ang-pokemon-mfe-pokemon-carousel></ang-pokemon-mfe-pokemon-carousel>
+
+<div class="grid">
+  <div class="col-2">
+    <div class="box">
+      <p-panel header="Search">
+        <input type="text" pInputText [(ngModel)]="search" (ngModelChange)="onSearchChange($event)" />
+      </p-panel>
+    </div>
+  </div>
+  <div class="col-10">
+    <div class="grid">
+      <div class="col-2" *ngFor="let p of pokemon">
+        <p-panel [header]="p.name.english">
+          <img [src]="p.image" style="height: 150px;" />
+        </p-panel>
+      </div>
+    </div>
+  </div>
+</div>

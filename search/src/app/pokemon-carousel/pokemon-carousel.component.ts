@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+
 
 interface Pokemon {
   name: {
@@ -17,7 +18,11 @@ interface Image {
 })
 export class PokemonCarouselComponent implements OnInit {
   images: Image[] = [];
+  poke_name:string[];
 
+  //https://stackoverflow.com/questions/31131490/how-to-subscribe-to-an-event-on-a-service-in-angular2
+  //Emmit from child and get child emmit from parent using component reference
+  @Output() results:EventEmitter<any>=new EventEmitter<any>();
   @Input() 
   get search(){
     return this._search;
@@ -44,6 +49,8 @@ export class PokemonCarouselComponent implements OnInit {
           }))
           .filter((p: Image) => p.name.toLowerCase().indexOf(search_val) > -1)
           .slice(0, 10);
+          this.poke_name=this.images.map((im:Image)=>{return im.name})
+          this.results.emit(this.poke_name)
       });
   }
 
